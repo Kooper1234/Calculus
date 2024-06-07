@@ -1,3 +1,5 @@
+
+Copy code
 import streamlit as st
 import sympy as sp
 import numpy as np
@@ -29,7 +31,16 @@ def riemann_sum(f, a, b, n, method='left'):
     riemann_sum = np.sum(heights * width)
     return riemann_sum
 
+# Function to verify and cross-check results
+def verify_results(sympy_result, numerical_result, tolerance=1e-5):
+    if abs(sympy_result - numerical_result) < tolerance:
+        return True
+    return False
+
 st.title('Definite Integral and Riemann Sum Approximation')
+
+# Instructions for entering the function
+st.write("Enter the function to integrate in terms of x. Use '**' for exponentiation, e.g., '((-3**(x+1.893))+8)**2-((3**(x-10))**2)'")
 
 # Input for function
 f_input = st.text_input('Enter the function to integrate (in terms of x):', '((-3**(x+1.893))+8)**2-((3**(x-10))**2)')
@@ -48,6 +59,12 @@ if st.button('Calculate Definite Integral'):
 
         numerical_result = numerical_integral(f, a, b)
         st.write(f'The definite integral of {f_input} from {a} to {b} is (numerical): {numerical_result}')
+
+        # Verify and cross-check results
+        if verify_results(integral, numerical_result):
+            st.success('The symbolic and numerical results match within tolerance.')
+        else:
+            st.warning('The symbolic and numerical results do not match. Please verify the input function.')
     except Exception as e:
         st.error(f"An error occurred: {e}")
 
