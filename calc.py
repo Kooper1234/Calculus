@@ -24,7 +24,7 @@ def riemann_sum(f, a, b, n, method='left'):
 st.title('Definite Integral and Riemann Sum Approximation')
 
 # Input for function
-f_input = st.text_input('Enter the function to integrate (in terms of x):', 'x**2')
+f_input = st.text_input('Enter the function to integrate (in terms of x):', '((-3**(x+1.893))+8)**2-((3**(x-10))**2)')
 f = sp.sympify(f_input)
 
 # Input for interval
